@@ -23,6 +23,12 @@ jobs:
           mkdir -p "$(dirname "$TAP")"
           ln -s "$PWD/homebrew-tap" "$TAP"
 
+      # Homebrew 6 refuses to evaluate an untrusted third-party tap. Whole-tap
+      # scope here because the audit covers every cask; the README tells users to
+      # trust just the one they install.
+      - name: Trust
+        run: brew trust saeedkolivand/tap
+
       - name: Style
         run: brew style saeedkolivand/tap
 
