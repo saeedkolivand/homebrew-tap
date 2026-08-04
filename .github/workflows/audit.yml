@@ -1,0 +1,32 @@
+name: Audit
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    # Weekly, so a release that moved or a dead download URL surfaces here
+    # rather than in somebody's failed install.
+    - cron: "0 6 * * 1"
+
+jobs:
+  audit:
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: homebrew-tap
+
+      - name: Link as a tap
+        run: |
+          TAP="$(brew --repository)/Library/Taps/saeedkolivand/homebrew-tap"
+          mkdir -p "$(dirname "$TAP")"
+          ln -s "$PWD/homebrew-tap" "$TAP"
+
+      - name: Style
+        run: brew style saeedkolivand/tap
+
+      # Checks the cask parses, the download URL resolves, and the sha256 matches
+      # what is actually published.
+      - name: Audit
+        run: brew audit --cask --online saeedkolivand/tap/claude-usage
