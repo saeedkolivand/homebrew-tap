@@ -8,7 +8,9 @@ cask "claude-usage" do
   desc "Claude Code usage in the menu bar and as a desktop widget"
   homepage "https://github.com/saeedkolivand/claude-usage-mac"
 
-  depends_on macos: ">= :sonoma"
+  # A bare symbol already means "this version or newer"; `>= :sonoma` fails
+  # brew style (Homebrew/OSDependsOn).
+  depends_on macos: :sonoma
 
   app "Claude Usage.app"
 
