@@ -1,6 +1,6 @@
 cask "claude-usage" do
-  version "0.3.9"
-  sha256 "53b9ce4938a2b7685125dcab1860463da2b82abfec20966324bd2c3ae747182e"
+  version "0.4.0"
+  sha256 "8606b43c47312a4af3a727a701efd978b1c6d10e445c96b3ea25806b5df3ef10"
 
   url "https://github.com/saeedkolivand/claude-usage-mac/releases/download/v#{version}/ClaudeUsage-#{version}.dmg",
       verified: "github.com/saeedkolivand/claude-usage-mac/"
