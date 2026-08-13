@@ -35,4 +35,9 @@ jobs:
       # Checks the cask parses, the download URL resolves, and the sha256 matches
       # what is actually published.
       - name: Audit
+        # Without a token, --online queries the GitHub API anonymously — 60
+        # requests/hour per IP, shared across every tenant of the runner pool,
+        # so the audit dies on someone else's traffic.
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: ${{ github.token }}
         run: brew audit --cask --online saeedkolivand/tap/claude-usage
